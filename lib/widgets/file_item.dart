@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 

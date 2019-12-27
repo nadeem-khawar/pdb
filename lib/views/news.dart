@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:pdb/common/styles.dart';
 import 'package:pdb/view_models/news_model.dart';
 import 'package:pdb/widgets/news_item.dart';
 import 'package:pdb/widgets/pdb_appbar.dart';

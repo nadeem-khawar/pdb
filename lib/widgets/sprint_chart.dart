@@ -7,7 +7,6 @@ import 'package:pdb/models/reform_data.dart';
 import 'package:pdb/view_models/reform_sprint_statistics_model.dart';
 import 'package:pdb/view_models/sprint_reform_action_model.dart';
 import 'package:pdb/widgets/backdrop/backdrop_panel.dart';
-import 'package:pdb/widgets/backdrop/backdrop_title.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:pdb/widgets/placeholder/placehoder_list.dart';
 import 'package:pdb/widgets/placeholder/placeholder_card_short.dart';

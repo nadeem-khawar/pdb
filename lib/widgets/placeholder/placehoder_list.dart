@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:pdb/common/styles.dart';
-import 'package:pdb/widgets/placeholder/placeholder_card_short.dart';
 
 class PlaceHolderList extends StatelessWidget {
   final int itemCount;
