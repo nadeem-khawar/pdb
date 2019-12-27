@@ -4,7 +4,8 @@ import 'package:pdb/common/styles.dart';
 
 class PDBAppBar extends StatefulWidget implements PreferredSizeWidget{
   final String title;
-  PDBAppBar({Key key,this.title})
+  final bool showCommentButton;
+  PDBAppBar({Key key,this.title,this.showCommentButton = true})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -23,9 +24,10 @@ class _PDBAppBarState extends State<PDBAppBar> {
       title: Text(widget.title),
 
       actions: <Widget>[
-        IconButton(
+        if(widget.showCommentButton)
+          IconButton(
           icon: Icon(Icons.add_comment,color: Colors.white,),
-          onPressed: (){Navigator.pushNamed(context, contactFeedbackRoute);},
+          onPressed: (){Navigator.pushNamed(context, contactRoute);},
         ),
       ],
     );

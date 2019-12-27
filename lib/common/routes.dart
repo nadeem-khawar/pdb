@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pdb/common/navigation_args.dart';
 import 'package:pdb/common/route_constants.dart';
+import 'package:pdb/views/contact.dart';
+import 'package:pdb/views/feedback.dart' as feedback;
 import 'package:pdb/views/home.dart';
 import 'package:pdb/views/news.dart';
 import 'package:pdb/views/reform_action_faq.dart';
@@ -71,6 +73,10 @@ class Routes {
         return _errorRoute();
       case registrationRoute:
         return MaterialPageRoute(builder:(_) => Registration());
+      case contactRoute:
+        return MaterialPageRoute(builder:(_) => Contact());
+      case feedbackRoute:
+        return MaterialPageRoute(builder:(_) => feedback.Feedback());
     /*
 
 

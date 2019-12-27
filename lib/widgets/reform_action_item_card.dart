@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pdb/common/route_constants.dart';
 class ReformActionItemCard extends StatelessWidget {
   final String actionName;
   final String status;
@@ -60,6 +61,7 @@ class ReformActionItemCard extends StatelessWidget {
               children: <Widget>[
                 FlatButton.icon(
                   onPressed: () {
+                    Navigator.pushNamed(context, feedbackRoute);
                   },
                   icon: Icon(Icons.feedback),
                   label: Text('Feedback'),
