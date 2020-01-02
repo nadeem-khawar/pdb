@@ -77,33 +77,6 @@ class Routes {
         return MaterialPageRoute(builder:(_) => Contact());
       case feedbackRoute:
         return MaterialPageRoute(builder:(_) => feedback.Feedback());
-    /*
-
-
-      case reformPlanRoute:
-        return FadeRoute(page: ReformPlan());
-      case procedureRoute:
-        if (args is ReformArgs) {
-          return FadeRoute(page: ReformProcedure(
-            reformTopicId: args.reformTopicId,
-          ));
-        }
-        return _errorRoute();
-
-      case contactFeedbackRoute:
-        if (args is FeedbackArgs) {
-          return FadeRoute(page:ContactFeedback(args.subject));
-        }
-        return FadeRoute(page: ContactFeedback(''));
-      case reformFaqRoute:
-        if (args is ReformArgs) {
-          return FadeRoute(page: ReformFaq(
-            reformId: args.reformTopicId,
-          ));
-        }
-        return _errorRoute();
-
-      */
       default:
         return _errorRoute();
     }

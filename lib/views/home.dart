@@ -12,6 +12,7 @@ import 'package:pdb/widgets/placeholder/placeholder_card_short.dart';
 import 'package:pdb/widgets/rounded_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:after_layout/after_layout.dart';
+import 'package:pdb/common/constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -24,70 +25,69 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
     Provider.of<HomeModel>(context).getNews();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    double headerHeight = MediaQuery.of(context).size.height * 0.20;
-
-    final homeModel = Provider.of<HomeModel>(context);
-
-    return Scaffold(
-      appBar: PDBAppBar(
-        title: '',
-      ),
-      drawer: PDBDrawer(),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: headerHeight,
-              child: RoundedShadow(
-                topLeftRadius: 0,
-                topRightRadius: 0,
-                bottomLeftRadius: 20,
-                bottomRightRadius: 20,
-                startColor: kDBPrimaryColor,
-                endColor: kDBBackgroundGrey,
-                shadowColor: Color(0x0).withAlpha(65),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 30,horizontal: 45),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Image.asset('assets/logo.png'),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 200,
-                            child: Text(
-                              'Pakistan Doing Business',
-                              softWrap: true,
-                              style: Theme.of(context).textTheme.headline.copyWith(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 170,
-                            child: Text(
-                              'Better Business Regulation in Pakistan',
-                              softWrap: true,
-                              style: Theme.of(context).textTheme.caption.copyWith(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+  Widget _buildAppBar(BuildContext context, double statusBarHeight) {
+    var top = 0.0;
+    return SliverAppBar(
+      elevation: 0,
+      expandedHeight: 240,
+      pinned: true,
+      flexibleSpace: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          top = constraints.biggest.height;
+          return FlexibleSpaceBar(
+            title: AnimatedOpacity(
+                duration: Duration(milliseconds: 100),
+                opacity: top <= 120.0 ? 1.0 : 0.0,
+                //opacity: 1.0,
+                child: Text(
+                  'PAKISTAN DOING BUSINESS',
+                )),
+            centerTitle: true,
+            background: RoundedShadow(
+              topLeftRadius: 0,
+              topRightRadius: 0,
+              bottomLeftRadius: 0,
+              bottomRightRadius: 0,
+              startColor: kDBPrimaryColor,
+              endColor: kDBPrimaryColor,
+              shadowColor: Color(0x0).withAlpha(65),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(top: 80,bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(kLogoImage),
+                  ],
                 ),
               ),
             ),
-            Padding(
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double headerHeight = MediaQuery.of(context).size.height * 0.20;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final homeModel = Provider.of<HomeModel>(context);
+
+    return Scaffold(
+      /*appBar: PDBAppBar(
+        title: '',
+      ),*/
+      drawer: PDBDrawer(),
+      body: SafeArea(
+        top: false,
+          bottom: true,
+          child: CustomScrollView(
+        slivers: <Widget>[
+          _buildAppBar(context, statusBarHeight),
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Align(
                   alignment: Alignment.centerRight,
@@ -120,11 +120,15 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
                         )),
                   )),
             ),
-            Text(
+          ),
+          SliverToBoxAdapter(
+            child: Text(
               'REFORM TOPICS',
               style: Theme.of(context).textTheme.headline,
             ),
-            Container(
+          ),
+          SliverToBoxAdapter(
+            child: Container(
               height: 150,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -184,47 +188,119 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
                 },
               ),
             ),
-            Text(
+          ),
+          SliverToBoxAdapter(
+            child: Text(
               'LATEST NEWS',
               style: Theme.of(context).textTheme.headline,
             ),
-            Flexible(
-              fit: FlexFit.loose,
-              child: ListenableProvider.value(
-                value: homeModel,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                ListenableProvider.value(value: homeModel,
                 child: Consumer<HomeModel>(
-                  builder: (context, value, _) {
-                    if (value.busy == true) {
-                      return PlaceHolderList(
-                        itemCount: 5,
-                        child: PlaceholderCardShort(
-                          color: Color(0XFFACACAA),
-                          backgroundColor: Color(0XFFDEDEDC),
-                          height: 100,
-                        ),
+                  builder: (context,model,_){
+                    if(model.busy){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: List.generate(11, (i) {
+                          if(i == 0){
+                            return LinearProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(kDBPrimaryColor),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                            child: PlaceholderCardShort(
+                              color: Color(0XFFACACAA),
+                              backgroundColor: Color(0XFFDEDEDC),
+                              height: 100,
+                            ),
+                          );
+                        }),
                       );
                     }
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        itemCount: value.news.length,
-                        itemBuilder: (context, index) {
-                          final newsItem = value.news[index];
-                          return NewsItem(
-                            title: newsItem.title,
-                            newsDate: newsItem.newsDate,
-                            link: newsItem.linksInContent.length == 0
-                                ? newsItem.externalLink
-                                : newsItem.linksInContent[0],
-                          );
-                        });
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: List.generate(model.news.length, (i) {
+                        final newsItem = model.news[i];
+                        return NewsItem(
+                          title: newsItem.title,
+                          newsDate: newsItem.newsDate,
+                          link: newsItem.linksInContent.length == 0
+                              ? newsItem.externalLink
+                              : newsItem.linksInContent[0],
+                        );
+                      }),
+                    );
                   },
-                ),
-              ),
-            )
-          ],
-        ),
+                ),),
+
+
+              ],
+            ),
+          ),
+        ],
       )),
     );
   }
 }
+
+Widget _getWidget() {}
+
+/*
+Container(
+height: headerHeight,
+child: RoundedShadow(
+topLeftRadius: 0,
+topRightRadius: 0,
+bottomLeftRadius: 20,
+bottomRightRadius: 20,
+startColor: kDBPrimaryColor,
+endColor: kDBBackgroundGrey,
+shadowColor: Color(0x0).withAlpha(65),
+child: Container(
+width: double.infinity,
+padding: EdgeInsets.symmetric(vertical: 30, horizontal: 45),
+child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceAround,
+crossAxisAlignment: CrossAxisAlignment.start,
+children: <Widget>[
+Image.asset('assets/logo.png'),
+Column(
+mainAxisAlignment: MainAxisAlignment.start,
+crossAxisAlignment: CrossAxisAlignment.start,
+children: <Widget>[
+SizedBox(
+width: 200,
+child: Text(
+'Pakistan Doing Business',
+softWrap: true,
+style: Theme.of(context)
+.textTheme
+    .headline
+    .copyWith(color: Colors.white),
+),
+),
+SizedBox(
+width: 170,
+child: Text(
+'Better Business Regulation in Pakistan',
+softWrap: true,
+style: Theme.of(context)
+.textTheme
+    .caption
+    .copyWith(color: Colors.white),
+),
+),
+],
+),
+],
+),
+),
+),
+),
+*/
