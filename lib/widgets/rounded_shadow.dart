@@ -12,7 +12,7 @@ class RoundedShadow extends StatelessWidget {
   final double topRightRadius;
   final double bottomLeftRadius;
   final double bottomRightRadius;
-
+  final EdgeInsetsGeometry padding;
   const RoundedShadow(
       {Key key,
         this.shadowColor,
@@ -22,10 +22,11 @@ class RoundedShadow extends StatelessWidget {
         this.bottomRightRadius = 48,
         this.startColor = kDBPrimaryColor,
         this.endColor = kDBPrimaryColor,
+        this.padding = const EdgeInsets.all(0),
         this.child})
       : super(key: key);
 
-  const RoundedShadow.fromRadius(double radius, {Key key, this.child, this.shadowColor,this.startColor,this.endColor}) :
+  const RoundedShadow.fromRadius(double radius, {Key key, this.child, this.shadowColor,this.startColor,this.endColor,this.padding}) :
         topLeftRadius=radius, topRightRadius=radius, bottomLeftRadius=radius, bottomRightRadius=radius;
 
   @override
@@ -41,6 +42,7 @@ class RoundedShadow extends StatelessWidget {
 
     var maxRadius = [topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius].reduce(max);
     return Container(
+      padding: padding,
       decoration: new BoxDecoration(
         borderRadius: r,
         boxShadow: [new BoxShadow(color: sColor, blurRadius: maxRadius * .5)],
