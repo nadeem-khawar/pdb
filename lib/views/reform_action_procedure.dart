@@ -20,7 +20,7 @@ class _ReformActionProcedureState extends State<ReformActionProcedure>
     with AfterLayoutMixin<ReformActionProcedure> {
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<ReformActionProcedureModel>(context)
+    Provider.of<ReformActionProcedureModel>(context,listen: false)
         .fetchReformTopicProcedureArea(widget.reformTopicId);
   }
 

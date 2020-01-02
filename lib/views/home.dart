@@ -39,6 +39,7 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
       ],
       elevation: 0,
       expandedHeight: 240,
+      floating: true,
       pinned: true,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

@@ -16,7 +16,7 @@ class _ReformSprintsState extends State<ReformSprints> with AfterLayoutMixin<Ref
 
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<ReformSprintsModel>(context).getOverall();
+    Provider.of<ReformSprintsModel>(context,listen: false).getOverall();
   }
 
   @override
