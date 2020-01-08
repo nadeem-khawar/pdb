@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdb/common/navigation_args.dart';
+import 'package:pdb/common/pdb_screenutil.dart';
 import 'package:pdb/common/route_constants.dart';
 import 'package:pdb/common/styles.dart';
 import 'package:pdb/view_models/home_model.dart';
@@ -11,6 +12,7 @@ import 'package:pdb/widgets/rounded_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:pdb/common/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
   }
 
   Widget _buildAppBar(BuildContext context, double statusBarHeight) {
+    double headerHeight = MediaQuery.of(context).size.height * 0.3;
     var top = 0.0;
     return SliverAppBar(
       actions: <Widget>[
@@ -38,7 +41,7 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
         ),
       ],
       elevation: 0,
-      expandedHeight: 240,
+      expandedHeight: headerHeight,
       floating: true,
       pinned: true,
       flexibleSpace: LayoutBuilder(
@@ -74,7 +77,8 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double headerHeight = MediaQuery.of(context).size.height * 0.20;
+    Constant.setScreenAwareConstant(context);
+    //ScreenUtil().setSp(24, allowFontScalingSelf: true);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final homeModel = Provider.of<HomeModel>(context);
 

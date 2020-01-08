@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pdb/common/pdb_screenutil.dart';
+
 
 
 const kDBPrimaryColor = const Color(0xFF09B5F5);
@@ -142,19 +144,19 @@ ThemeData buildDoingBusinessTheme(context) {
       ),
       backgroundColor: kDBBackgroundGrey,
       textTheme: GoogleFonts.oswaldTextTheme(textTheme).copyWith(
-        title: GoogleFonts.oswald(textStyle: textTheme.title,fontWeight: FontWeight.normal),
-        body1: GoogleFonts.oswald(textStyle: textTheme.body1),
-        body2: GoogleFonts.oswald(textStyle: textTheme.body2),
-        button: GoogleFonts.oswald(textStyle: textTheme.button),
-        caption: GoogleFonts.oswald(textStyle: textTheme.caption),
-        display1: GoogleFonts.oswald(textStyle: textTheme.display1),
-        display2: GoogleFonts.oswald(textStyle: textTheme.display2),
-        display3: GoogleFonts.oswald(textStyle: textTheme.display3),
-        display4: GoogleFonts.oswald(textStyle: textTheme.display4),
-        headline: GoogleFonts.oswald(textStyle: textTheme.headline),
-        overline: GoogleFonts.oswald(textStyle: textTheme.overline),
-        subhead: GoogleFonts.oswald(textStyle: textTheme.subhead),
-        subtitle: GoogleFonts.oswald(textStyle: textTheme.subtitle),
+        title: GoogleFonts.oswald(textStyle: textTheme.title,fontWeight: FontWeight.normal,),
+        body1: GoogleFonts.oswald(textStyle: textTheme.body1,),
+        body2: GoogleFonts.oswald(textStyle: textTheme.body2,),
+        button: GoogleFonts.oswald(textStyle: textTheme.button,),
+        caption: GoogleFonts.oswald(textStyle: textTheme.caption,),
+        display1: GoogleFonts.oswald(textStyle: textTheme.display1,),
+        display2: GoogleFonts.oswald(textStyle: textTheme.display2,),
+        display3: GoogleFonts.oswald(textStyle: textTheme.display3,),
+        display4: GoogleFonts.oswald(textStyle: textTheme.display4,),
+        headline: GoogleFonts.oswald(textStyle: textTheme.headline,),
+        overline: GoogleFonts.oswald(textStyle: textTheme.overline,),
+        subhead: GoogleFonts.oswald(textStyle: textTheme.subhead,),
+        subtitle: GoogleFonts.oswald(textStyle: textTheme.subtitle,),
       )
     // TODO: Add the text themes (103)
     // TODO: Add the icon themes (103)
