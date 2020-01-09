@@ -17,7 +17,7 @@ class _RegistrationState extends State<Registration>
     with AfterLayoutMixin<Registration> {
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<RegistrationModel>(context).fetchRegistrationInfo();
+    Provider.of<RegistrationModel>(context,listen: false).fetchRegistrationInfo();
   }
 
   @override
