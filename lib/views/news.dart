@@ -20,7 +20,7 @@ class News extends StatefulWidget {
 class _NewsState extends State<News> with AfterLayoutMixin<News> {
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<NewsModel>(context).getNews(widget.slug);
+    Provider.of<NewsModel>(context,listen: false).getNews(widget.slug);
   }
 
   @override
