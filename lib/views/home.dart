@@ -10,21 +10,10 @@ import 'package:pdb/widgets/pdb_drawer.dart';
 import 'package:pdb/widgets/placeholder/placeholder_card_short.dart';
 import 'package:pdb/widgets/rounded_shadow.dart';
 import 'package:provider/provider.dart';
-import 'package:after_layout/after_layout.dart';
 import 'package:pdb/common/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
-  @override
-  void afterFirstLayout(BuildContext context) {
-    Provider.of<HomeModel>(context,listen: false).getNews();
-  }
-
+class Home extends StatelessWidget {
   Widget _buildAppBar(BuildContext context, double statusBarHeight) {
     double headerHeight = MediaQuery.of(context).size.height * 0.3;
     var top = 0.0;
@@ -42,7 +31,7 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
       ],
       elevation: 0,
       expandedHeight: headerHeight,
-      floating: true,
+      floating: false,
       pinned: true,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -81,7 +70,7 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
     //ScreenUtil().setSp(24, allowFontScalingSelf: true);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final homeModel = Provider.of<HomeModel>(context);
-
+    homeModel.getNews();
     return Scaffold(
       drawer: PDBDrawer(),
       body: SafeArea(
@@ -258,59 +247,3 @@ class _HomeState extends State<Home> with AfterLayoutMixin<Home> {
     );
   }
 }
-
-Widget _getWidget() {}
-
-/*
-Container(
-height: headerHeight,
-child: RoundedShadow(
-topLeftRadius: 0,
-topRightRadius: 0,
-bottomLeftRadius: 20,
-bottomRightRadius: 20,
-startColor: kDBPrimaryColor,
-endColor: kDBBackgroundGrey,
-shadowColor: Color(0x0).withAlpha(65),
-child: Container(
-width: double.infinity,
-padding: EdgeInsets.symmetric(vertical: 30, horizontal: 45),
-child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceAround,
-crossAxisAlignment: CrossAxisAlignment.start,
-children: <Widget>[
-Image.asset('assets/logo.png'),
-Column(
-mainAxisAlignment: MainAxisAlignment.start,
-crossAxisAlignment: CrossAxisAlignment.start,
-children: <Widget>[
-SizedBox(
-width: 200,
-child: Text(
-'Pakistan Doing Business',
-softWrap: true,
-style: Theme.of(context)
-.textTheme
-    .headline
-    .copyWith(color: Colors.white),
-),
-),
-SizedBox(
-width: 170,
-child: Text(
-'Better Business Regulation in Pakistan',
-softWrap: true,
-style: Theme.of(context)
-.textTheme
-    .caption
-    .copyWith(color: Colors.white),
-),
-),
-],
-),
-],
-),
-),
-),
-),
-*/
