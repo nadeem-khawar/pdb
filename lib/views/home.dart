@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdb/common/navigation_args.dart';
@@ -13,7 +14,20 @@ import 'package:provider/provider.dart';
 import 'package:pdb/common/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> with AfterLayoutMixin<Home>{
+
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    // TODO: implement afterFirstLayout
+    Provider.of<HomeModel>(context,listen: false).getNews();
+  }
+
   Widget _buildAppBar(BuildContext context, double statusBarHeight) {
     double headerHeight = MediaQuery.of(context).size.height * 0.3;
     var top = 0.0;
@@ -70,7 +84,6 @@ class Home extends StatelessWidget {
     //ScreenUtil().setSp(24, allowFontScalingSelf: true);
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final homeModel = Provider.of<HomeModel>(context);
-    homeModel.getNews();
     return Scaffold(
       drawer: PDBDrawer(),
       body: SafeArea(
@@ -246,4 +259,5 @@ class Home extends StatelessWidget {
           )),
     );
   }
+
 }
