@@ -8,4 +8,5 @@ class AppModel extends BaseModel{
   String message;
   bool darkTheme = false;
   bool isInit = false;
+
 }
